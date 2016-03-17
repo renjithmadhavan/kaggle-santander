@@ -1,0 +1,45 @@
+---
+title: "Santander"
+author: "Keith Hultman"
+date: "March 13, 2016"
+output: html_document
+---
+
+### From the Competition page:
+Santander Bank is asking Kagglers to help them identify dissatisfied customers early in their relationship. Doing so would allow Santander to take proactive steps to improve a customer's happiness before it's too late.
+
+You are provided with an anonymized dataset containing a large number of numeric variables. The "TARGET" column is the variable to predict. It equals one for unsatisfied customers and 0 for satisfied customers.
+
+The task is to predict the probability that each customer in the test set is an unsatisfied customer.
+
+```{r Load Data}
+setwd("~/github/Santander")
+train <- read.csv("train.csv", stringsAsFactors = TRUE)
+test <- read.csv("test.csv")
+
+```
+
+```{r Explore dataset}
+summary(train)
+dim(train)
+colnames(train)
+head(train)
+
+train$TARGET <- as.factor(train$TARGET)
+```
+
+```{r Principal Components Analysis}
+# I'm not sure if I need to normalize the data first
+
+# train.pca1 <- princomp(train, scores = TRUE)
+# train.pca1 <- princomp(train, scores = TRUE, cor=TRUE)
+# These resulted in errors, presumably due to data not being normalized
+
+sum(is.na(train))
+# There are no NAs in data
+
+scaled.train <- scale(train)
+summary(scaled.train)
+train.pca1 <- princomp(scaled.train, scores = TRUE, cor = TRUE)
+```
+
