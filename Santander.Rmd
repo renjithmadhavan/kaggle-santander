@@ -13,19 +13,36 @@ You are provided with an anonymized dataset containing a large number of numeric
 The task is to predict the probability that each customer in the test set is an unsatisfied customer.
 
 ```{r Load Data}
-setwd("~/github/Santander")
+setwd("~/github/kaggle-santander")
 train <- read.csv("train.csv", stringsAsFactors = TRUE)
 test <- read.csv("test.csv")
 
 ```
 
 ```{r Explore dataset}
-summary(train)
 dim(train)
 colnames(train)
-head(train)
 
+sum(is.na(train))
+# There are no NAs in data
+sum(is.infinite(train))
+
+str(train)
+
+# Identify which columns need to be set to logical or factor
+# Start with known logical column
+# TARGET is 0 if satisfied, and 1 if unsatisfied
 train$TARGET <- as.factor(train$TARGET)
+
+# Search for columns with only 2 unique numbers
+cols.to.factor <- sapply(train, function(col) (length(unique(col)) <= 2))
+
+# Set those columns to Factor
+train[ , cols.to.factor] <- lapply(train[ , cols.to.factor] , factor)
+# This has the downside of setting columns other than 0/1 to factors 
+# For example there are several 0 or 3 columns - I'm fine with this for now
+
+str(train)
 ```
 
 ```{r Principal Components Analysis}
@@ -35,11 +52,15 @@ train$TARGET <- as.factor(train$TARGET)
 # train.pca1 <- princomp(train, scores = TRUE, cor=TRUE)
 # These resulted in errors, presumably due to data not being normalized
 
-sum(is.na(train))
-# There are no NAs in data
+scaled.train <- train
 
-scaled.train <- scale(train)
-summary(scaled.train)
+# Normalize data set so that mean is 0 and standard deviation is 1
+col.to.scale <- sapply(scaled.train, is.numeric)
+scaled.train[col.to.scale] <- lapply(scaled.train[col.to.scale], scale)
+
+str(scaled.train)
+
+
 train.pca1 <- princomp(scaled.train, scores = TRUE, cor = TRUE)
 ```
 
