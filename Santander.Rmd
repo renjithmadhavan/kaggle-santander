@@ -15,7 +15,7 @@ The task is to predict the probability that each customer in the test set is an 
 ```{r Load Data}
 setwd("~/github/kaggle-santander")
 train <- read.csv("train.csv", stringsAsFactors = TRUE)
-test <- read.csv("test.csv")
+test <- read.csv("test.csv", stringsAsFactors = TRUE)
 
 ```
 
@@ -25,7 +25,9 @@ colnames(train)
 
 sum(is.na(train))
 # There are no NAs in data
-sum(is.infinite(train))
+
+
+
 
 str(train)
 
@@ -43,6 +45,11 @@ train[ , cols.to.factor] <- lapply(train[ , cols.to.factor] , factor)
 # For example there are several 0 or 3 columns - I'm fine with this for now
 
 str(train)
+
+library(ggplot2)
+
+
+
 ```
 
 ```{r Principal Components Analysis}
