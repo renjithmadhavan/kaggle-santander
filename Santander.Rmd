@@ -19,7 +19,7 @@ test <- read.csv("test.csv", stringsAsFactors = TRUE)
 
 ```
 
-```{r Explore dataset}
+```{r Data Cleaning}
 dim(train)
 colnames(train)
 
