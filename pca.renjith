@@ -1,0 +1,33 @@
+
+data("iris")
+head(iris, 3)
+log.ir <- log(iris[, 1:4])
+ir.species <- iris[, 5]
+ir.pca <- prcomp(log.ir, center = TRUE, scale. = TRUE)
+print(ir.pca)
+
+library(ggplot2)
+plot(ir.pca, type = "l")
+summary(ir.pca)
+
+install.packages("devtools")
+install.packages("scales")
+install.packages("stringi")
+library(devtools)
+install_github("vqv/ggbiplot")
+library(ggbiplot)
+
+g <- ggbiplot(ir.pca, obs.scale = 1, var.scale = 1, groups = ir.species, ellipse = TRUE, circle = TRUE)
+g <- g + scale_color_discrete(name = '')
+g <- g + theme(legend.direction = 'horizontal', legend.position = 'top')
+print(g)
+
+setwd("C:/renjith/learning/kaggle")
+mydata <- read.csv("train.csv")
+head(mydata, 10)[, 1:10]
+summary(mydata)
+
+log.cust <- log(mydata[, 1:370])
+cust.target <- mydata[, 371]
+
+cust.pca <- prcomp(log.cust, center = TRUE, scale. = TRUE)
