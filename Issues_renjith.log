@@ -1,0 +1,17 @@
+> cust.target <- mydata[, 371]
+> cust.pca <- prcomp(log.cust, center = TRUE, scale. = TRUE)
+Error in prcomp.default(log.cust, center = TRUE, scale. = TRUE) : 
+  cannot rescale a constant/zero column to unit variance
+> head(mydata, 10)[, 1:10]
+   ID var3 var15 imp_ent_var16_ult1 imp_op_var39_comer_ult1 imp_op_var39_comer_ult3 imp_op_var40_comer_ult1 imp_op_var40_comer_ult3 imp_op_var40_efect_ult1 imp_op_var40_efect_ult3
+1   1    2    23                  0                       0                       0                       0                       0                       0                       0
+2   3    2    34                  0                       0                       0                       0                       0                       0                       0
+3   4    2    23                  0                       0                       0                       0                       0                       0                       0
+4   8    2    37                  0                     195                     195                       0                       0                       0                       0
+5  10    2    39                  0                       0                       0                       0                       0                       0                       0
+6  13    2    23                  0                       0                       0                       0                       0                       0                       0
+7  14    2    27                  0                       0                       0                       0                       0                       0                       0
+8  18    2    26                  0                       0                       0                       0                       0                       0                       0
+9  20    2    45                  0                       0                       0                       0                       0                       0                       0
+10 23    2    25                  0                       0                       0                       0                       0                       0                       0
+> 
